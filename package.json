@@ -1,0 +1,22 @@
+{
+  "name": "projeto",
+  "version": "1.0.0",
+  "description": "Construindo uma API para o recrutamento da brisanet em NodeJS",
+  "main": "server.js",
+  "author": "Isaque Véras",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^8.5.1",
+    "sequelize": "^6.6.2",
+    "uuidv4": "^6.2.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
