@@ -1,29 +1,32 @@
 module.exports = (sequelize, Sequelize) => {
-  const Cliente = sequelize.define("cliente", {
+  const Historico = sequelize.define("historico", {
     id: {
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
       allowNull: false,
       primaryKey: true
     },
-    nome: {
+    estado_anterior: {
       type: Sequelize.STRING(200),
+    },
+    estado_posterior: {
+      type: Sequelize.STRING(200),
+    },
+    contrato_id: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
       allowNull: false,
     },
     data_remocao: {
       type: Sequelize.DATE,
-    },
-    tipo: {
-      type: Sequelize.STRING(200),
-      allowNull: false,
     }
   }, {
     freezeTableName: true,
-    tableName: 't_cliente',
+    tableName: 't_contrato_evento',
     timestamps: true,
     createdAt: 'data_criacao',
     updatedAt: 'data_atualizacao',
   });
 
-  return Cliente;
+  return Historico;
 };

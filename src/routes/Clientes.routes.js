@@ -1,20 +1,14 @@
-// const { authJwt } = require("../middleware");
+const { checkDuplicateCliente } = require("../middleware");
+
 module.exports = app => {
   const cliente = require("../controllers/ClienteController");
-
   var router = require("express").Router();
   
-  // Listar todas as cidades
-  router.get('/', cliente.findAll);
-  
-  // Cadastrar uma cidade
-  // router.post('/', city.create);
-
-  // Editar a cidade de preferência do usuário
-  // router.put('/editmycity/:id', [authJwt.verifyToken, authJwt.isUser], cliente.editMycliente);
-
-  // Excluir uma cidade
-  // router.delete('/:id', [authJwt.verifyToken, authJwt.isServiceProvider], cliente.deleteOne);
+  router.get('/cliente/:uuid', cliente.listOne); // Listar dados de um cliente
+  router.get('/clientes', cliente.listAll); // Listar clientes
+  router.post('/clientes', checkDuplicateCliente, cliente.create); // Cadastrar um cliente
+  router.put('/cliente/:uuid', cliente.update); // Atualiza dados de um cliente
+  router.delete('/cliente/:uuid', cliente.delete); // Excluir um cliente
 
   app.use('/api/v1/', router);
 };

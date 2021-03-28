@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const db = require("./src/models");
-
 const app = express();
 
 var corsOptions = {
@@ -12,25 +11,23 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
+// Parse requests of content-type - application/json
 app.use(bodyParser.json());
 
-// parse requests of content-type - application/x-www-form-urlencoded
+// Parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Sicronizar com o banco de dados
-db.sequelize.sync({ force: true });
+db.sequelize.sync({ force: false }); 
 
-// db.users.sync({ force: true });
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
+// Incluindo as rotas
+require("./src/routes/Clientes.routes")(app);
+require("./src/routes/Enderecos.routes")(app);
+require("./src/routes/Ponto.routes")(app);
+require("./src/routes/Contratos.routes")(app);
 
-// Chamando as rotas
-// require("./app/routes/User.routes")(app);
-
-// set port, listen for requests
+// Adicionando uma porta para o servidor
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`Servidor rodando na porta ${PORT}.`);
 });

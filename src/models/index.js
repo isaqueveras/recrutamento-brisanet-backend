@@ -12,17 +12,31 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   }
 });
 
-sequelize.authenticate().then(() => {
-  console.log("Success!");
-}).catch((err) => {
-  console.log(err);
-});
-
 const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.cliente = require("./Cliente")(sequelize, Sequelize);
+db.endereco = require("./Endereco")(sequelize, Sequelize);
+db.ponto = require("./Ponto")(sequelize, Sequelize);
+db.contrato = require("./Contrato")(sequelize, Sequelize);
+db.historico = require("./Historico")(sequelize, Sequelize);
+
+db.ponto.belongsTo(db.cliente, { 
+  as: "cliente",  
+  foreignKey: "cliente_id",
+});
+
+db.ponto.belongsTo(db.endereco, { 
+  as: "endereco",  
+  foreignKey: "endereco_id",
+});
+
+// Contratos -> ponto
+db.contrato.belongsTo(db.ponto, { 
+  as: "ponto",  
+  foreignKey: "ponto_id",
+}); 
 
 module.exports = db;
