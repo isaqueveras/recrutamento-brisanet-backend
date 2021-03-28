@@ -5,6 +5,7 @@
   "main": "server.js",
   "author": "Isaque Véras",
   "scripts": {
+    "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "license": "ISC",
